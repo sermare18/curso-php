@@ -1,12 +1,13 @@
 <?php
-//Diccionario de contactos
-$contacts = [
-    ["name" => "Pepe", "phone_number" => "615118673"],
-    ["name" => "Antonio", "phone_number" => "670118363"],
-    ["name" => "Nate", "phone_number" => "630348636"],
-    ["name" => "Rodrigo", "phone_number" => "678348690"],
-    ["name" => "Marcos", "phone_number" => "670681236"],
-];
+
+if(file_exists("contacts.json")){
+    #Decodificamos el archivo 'contacts.json' para pasarlo a un array
+    #  -> La función 'file_get_contents' convierte el archivo a un string
+    #  -> La función 'json_decode' transforma el string en un array asociativo, o a lo que corresponda como una lista
+    $contacts = json_decode(file_get_contents("contacts.json"), true);
+} else {
+    $contacts = [];
+}
 
 ?>
 
@@ -61,7 +62,7 @@ $contacts = [
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./add.html">Add Contact</a>
+                    <a class="nav-link" href="./add.php">Add Contact</a>
                 </li>
                 </ul>
             </div>
@@ -71,7 +72,14 @@ $contacts = [
         <main>
             <div class="container pt-4 p-3">
                 <div class="row">
-
+                <?php if (count($contacts) == 0): ?>
+                    <div class="col-md-4 mx-auto">
+                        <div class="card card-body text-center">
+                            <p>No contacts saved yet</p>
+                            <a href="./add.php">Add one!</a>
+                        </div>
+                    </div>
+                <?php endif ?>
                 <?php foreach($contacts as $contact) : ?>
                     <div class="col-md-4 mb-3">
                         <div class="card text-center">

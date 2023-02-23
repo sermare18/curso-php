@@ -1,0 +1,35 @@
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate, br
+Accept-Language: es-ES,es;q=0.9,en;q=0.8
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 46
+
+#El formato de la petición POST del navegador.
+#Las aplicaciones modernas ya casi no utilizan el formato 'x-www-form-urlencoded', sino el formato json.
+Content-Type: application/x-www-form-urlencoded
+
+Host: localhost
+Origin: http://localhost
+Pragma: no-cache
+Referer: http://localhost/contacts-app/add.php
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+sec-ch-ua-mobile: ?0
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36
+
+#Lo que ha mandado el navegador al dar al boton de submit
+#Así es como se vería la petición 'POST' del navegador
+#Se llama array asociativo, ya que es un array que asocia valores con claves
+name=Sergio&phone_number=65432143
+
+# array(2) {
+#   ["name"]=>
+#   string(6) "Sergio"
+#   ["phone_number"]=>
+#   string(8) "65432143"
+# }
