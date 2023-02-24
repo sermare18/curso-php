@@ -1,4 +1,5 @@
 -- Fichero de inicialización de  base de datos
+-- Por si borramos la db contacts_app nos permite volver a crearla
 
 DROP DATABASE IF EXISTS contacts_app;
 
@@ -12,5 +13,6 @@ CREATE TABLE contacts (
     phone_number VARCHAR(255)
 );
 
+-- Ejemplo insercción de un contacto desde la propia base de datos
 INSERT INTO contacts (name, phone_number) VALUES("Pepe","123456789");
 
