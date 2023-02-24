@@ -1,13 +1,10 @@
 <?php
 
-if(file_exists("contacts.json")){
-    #Decodificamos el archivo 'contacts.json' para pasarlo a un array
-    #  -> La función 'file_get_contents' convierte el archivo a un string
-    #  -> La función 'json_decode' transforma el string en un array asociativo, o a lo que corresponda como una lista
-    $contacts = json_decode(file_get_contents("contacts.json"), true);
-} else {
-    $contacts = [];
-}
+#Importamos la base de datos
+require "database.php";
+
+#Si llegamos aquí quiere decir que tenemos disponible la variable de conexión a la base de datos 'conn'
+$contacts = $conn->query("SELECT * FROM contacts");
 
 ?>
 
@@ -72,7 +69,7 @@ if(file_exists("contacts.json")){
         <main>
             <div class="container pt-4 p-3">
                 <div class="row">
-                <?php if (count($contacts) == 0): ?>
+                <?php if ($contacts->rowCount() == 0): ?>
                     <div class="col-md-4 mx-auto">
                         <div class="card card-body text-center">
                             <p>No contacts saved yet</p>
@@ -80,6 +77,7 @@ if(file_exists("contacts.json")){
                         </div>
                     </div>
                 <?php endif ?>
+
                 <?php foreach($contacts as $contact) : ?>
                     <div class="col-md-4 mb-3">
                         <div class="card text-center">

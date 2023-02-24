@@ -1,33 +1,24 @@
 <pre>
 <?php 
 
+require "database.php";
+
 #Variables superglobales, disponibles en cualquier web que utilice php.
 
 #Variable _SERVER: Contiene información acerca de la petición HTTP que nos manda el usuario.
 //var_dump($_SERVER);
 //die();
 if($_SERVER["REQUEST_METHOD"] == "POST") { //Aquí es donde nos envian datos a través del formulario.
-  $contact = [
-    "name" => $_POST["name"], //POST es otra variable superglobal, que contiene un array asociativo conformado por las peticiones POST
-    "phone_number" => $_POST["phone_number"],
-  ];
 
-if(file_exists("contacts.json")){
-    #Decodificamos el archivo 'contacts.json' para pasarlo a un array
-    #  -> La función 'file_get_contents' convierte el archivo a un string
-    #  -> La función 'json_decode' transforma el string en un array asociativo, o a lo que corresponda como una lista
-    $contacts = json_decode(file_get_contents("contacts.json"), true);
-} else {
-    $contacts = [];
-}
+  $name = $_POST["name"]; //POST es otra variable superglobal, que contiene un array asociativo conformado por las peticiones POST
+  $phoneNumber = $_POST["phone_number"]; //En las variables utilizamos nomenclatura camel case y en los campos de la base de datos siempre van con '_'
 
-#En php para añadir elementos a arrays:
-$contacts[] = $contact;
-#Creamos el archivo 'contacts.json' y le agregamos un archivo json ayudándonos de la función json_encode para transformar el array asociativo a json
-file_put_contents("contacts.json", json_encode($contacts));
+  #Insercción de contactos a la base de datos
+  $statement = $conn->prepare("INSERT INTO contacts (name, phone_number) VALUES ('$name', '$phoneNumber')");
+  $statement->execute();
+
 #Después de almacenar el nuevo contacto queremos que el navegador nos rediriga a 'index.php'
 header("Location: index.php");
-
 }
 
 ?>

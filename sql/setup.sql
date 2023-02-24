@@ -1,3 +1,5 @@
+-- Fichero de inicialización de  base de datos
+
 DROP DATABASE IF EXISTS contacts_app;
 
 CREATE DATABASE contacts_app;
