@@ -7,6 +7,15 @@ CREATE DATABASE contacts_app;
 
 USE contacts_app;
 
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
+    password VARCHAR(255)
+);
+-- Ejemplo insercción de un usuario desde la propia base de datos
+INSERT INTO users (name, email, password) VALUES("Sergio", "sergio.mare2002@gmail.com", "test1234");
+
 CREATE TABLE contacts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
@@ -14,5 +23,5 @@ CREATE TABLE contacts (
 );
 
 -- Ejemplo insercción de un contacto desde la propia base de datos
-INSERT INTO contacts (name, phone_number) VALUES("Pepe","123456789");
+-- INSERT INTO contacts (name, phone_number) VALUES("Pepe","123456789");
 
