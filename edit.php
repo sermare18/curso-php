@@ -72,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") { //Aquí es donde nos envian datos a t
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-header">Add New Contact</div>
+        <div class="card-header">Edit Contact</div>
         <div class="card-body">
           <?php
           if ($error): //Lo mismo que ($error != null), es decir si tenemos errores ?>
