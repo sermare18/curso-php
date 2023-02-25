@@ -2,6 +2,15 @@
 
 require "database.php";
 
+#Obtenemos los datos de la sesión
+session_start();
+
+if(!isset($_SESSION["user"])) { //Si no estamos logueados
+  #Redirigimos a login.php
+  header("Location: login.php");
+  return; //Para no seguir ejecutando código de este archivo si no estamos autentificados
+}
+
 #Obtenemos el contenido de la query-string, es decir los datos (el id del contacto a eliminar) de la url del boton de borrar contacto presente en home.php
 #Esta variable superglobal no siempre tiene datos unicamente si nosotros así lo hemos configurado
 #Nos guardamos el id del contacto a eliminar

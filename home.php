@@ -3,6 +3,15 @@
 #Importamos la base de datos
 require "database.php";
 
+#Obtenemos datos de la sesion
+session_start(); //En este caso es necesario emtre otras cosas para que en el navbar de la home page aparezca a le derecha el correo con el que hemos iniciado sesión (Esta información se encuentra en la variable $_SERVER presente en cada sesión)
+
+if(!isset($_SESSION["user"])) { //Si no estamos logueados
+    #Redirigimos a login.php
+    header("Location: login.php");
+    return; //Para no seguir ejecutando código de este archivo si no estamos autentificados
+}
+
 #Si llegamos aquí quiere decir que tenemos disponible la variable de conexión a la base de datos 'conn'
 $contacts = $conn->query("SELECT * FROM contacts");
 

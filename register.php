@@ -32,6 +32,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
           ":password" => password_hash($_POST["password"], PASSWORD_BCRYPT) //Las contraseñas hay que encriptarlas con un hash siempre
         ]);
 
+        #Añadimos al usuario recien creado a una sesión (Es decir, al registrarnos nos logeamos automáticamente)
+
+        #Buscamos al usuario recién creado en la base de datos
+        $statemet = $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
+        $statemet->bindParam(":email", $_POST["email"]);
+        $statemet->execute();
+
+        #Guardamos los datos del usuario en la variable $user en forma de array asociativo
+        $user = $statemet->fetch(PDO::FETCH_ASSOC);
+
+        #Si no tienes una sesión asociada te crea una sesión en el servidor
+        #En caso de que la tengas el navegador (cliente) manda la cookie al servidor para que este pueda acceder a la sesión.
+        session_start(); 
+
+        #Guardamos en la variable superglobal $_SESSION los datos que queramos almacenar durante la sesion
+        unset($user["password"]);
+        $_SESSION["user"] = $user;
+
         #Rederigimos al nuevo usuario a home.php
         header("Location: home.php");
     }

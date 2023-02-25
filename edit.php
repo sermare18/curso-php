@@ -2,6 +2,15 @@
 
 require "database.php";
 
+#Obtenemos los datos de la sesión
+session_start();
+
+if(!isset($_SESSION["user"])) { //Si no estamos logueados
+  #Redirigimos a login.php
+  header("Location: login.php");
+  return; //Para no seguir ejecutando código de este archivo si no estamos autentificados
+}
+
 #Obtenemos el id del contacto que queremos editar
 #La variable get no siempre tiene contenido en este caso si por el query-string
 $id = $_GET["id"];

@@ -2,6 +2,15 @@
 
 require "database.php";
 
+#Obtenemos datos de la sesion
+session_start();
+
+if(!isset($_SESSION["user"])) { //Si no estamos logueados
+  #Redirigimos a login.php
+  header("Location: login.php");
+  return; //Para no seguir ejecutando código de este archivo si no estamos autentificados
+}
+
 #Creamos un error que enviaremos al cliente en caso de que rellene el formulario mal
 $error = null;
 
