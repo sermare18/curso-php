@@ -49,8 +49,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") { //Aquí es donde nos envian datos a t
     ":phone_number" => $_POST["phone_number"]
   ]);
 
-  #Después de almacenar el nuevo contacto queremos que el navegador nos rediriga a 'index.php'
-  header("Location: index.php");
+  #Después de almacenar el nuevo contacto queremos que el navegador nos rediriga a 'home.php'
+  header("Location: home.php");
   }
 }
 

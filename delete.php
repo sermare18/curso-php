@@ -2,7 +2,7 @@
 
 require "database.php";
 
-#Obtenemos el contenido de la query-string, es decir los datos (el id del contacto a eliminar) de la url del boton de borrar contacto presente en index.php
+#Obtenemos el contenido de la query-string, es decir los datos (el id del contacto a eliminar) de la url del boton de borrar contacto presente en home.php
 #Esta variable superglobal no siempre tiene datos unicamente si nosotros así lo hemos configurado
 #Nos guardamos el id del contacto a eliminar
 $id = $_GET["id"];
@@ -24,7 +24,7 @@ if ($statement->rowCount() == 0){
 #Borramos de la base de datos el contacto protegiendonos de las inyecciones SQL (Esta vez de otra forma sin utilizar bindParam, en su lugar agregamos un array asociativo al parametro de execute)
 $conn->prepare("DELETE FROM contacts WHERE id = :id")->execute([":id" => $id]);
 
-#Redirigimos a index.php
-header("Location: index.php");
+#Redirigimos a home.php
+header("Location: home.php");
 
 ?>
