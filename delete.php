@@ -43,6 +43,9 @@ if($contact["user_id"] != $_SESSION['user']['id']){
 #Borramos de la base de datos el contacto protegiendonos de las inyecciones SQL (Esta vez de otra forma sin utilizar bindParam, en su lugar agregamos un array asociativo al parametro de execute)
 $conn->prepare("DELETE FROM contacts WHERE id = :id")->execute([":id" => $id]);
 
+#Creamos en la variable superglobal session un atributo que hace referencia a un mensaje flash
+$_SESSION["flash"] = ["message" => "Contact {$contact['name']} deleted.", "type" => "danger"];
+
 #Redirigimos a home.php
 header("Location: home.php");
 

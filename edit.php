@@ -65,10 +65,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") { //Aquí es donde nos envian datos a t
     ":phone_number" => $_POST["phone_number"]
   ]);
 
+  #Creamos en la variable superglobal session un atributo que hace referencia a un mensaje flash
+  $_SESSION["flash"] = ["message" => "Contact {$_POST['name']} modified.", "type" => "success"];
+
   #Después de almacenar el nuevo contacto queremos que el navegador nos rediriga a 'home.php'
   header("Location: home.php");
+  return; #Para que no se ejecute el código de abajo si ya ha tenido lugar el 'POST'
   }
-}
+
+} // Si aun no ha tenido lugar la solicitud 'POST' del formulario
 
 ?>
 
