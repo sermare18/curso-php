@@ -35,9 +35,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") { //Aquí es donde nos envian datos a t
   $phoneNumber = $_POST["phone_number"]; //En las variables utilizamos nomenclatura camel case y en los campos de la base de datos siempre van con '_'
 
   #Insercción de contactos a la base de datos
-  $statement = $conn->prepare("INSERT INTO contacts (name, phone_number) VALUES (:name, :phone_number)");
+  $statement = $conn->prepare("INSERT INTO contacts (user_id, name, phone_number) VALUES (:user_id, :name, :phone_number)");
 
   #Para prevenir inyecciones SQL
+  $statement->bindParam(":user_id", $_SESSION['user']['id']);
   $statement->bindParam(":name", $_POST["name"]);
   $statement->bindParam(":phone_number", $_POST["phone_number"]);
 
