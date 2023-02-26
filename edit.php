@@ -32,6 +32,13 @@ if ($statement->rowCount() == 0){
 #Guardamos la información del contacto extraida de la base de datos en un array asociativo
 $contact = $statement->fetch(PDO::FETCH_ASSOC);
 
+#Incrementamos la seguridad para que un usuario no puede editar contactos de otro usuario a través del string-query
+if($contact["user_id"] != $_SESSION['user']['id']){
+  http_response_code(403); //Código que indica que no estás autorizado para hacer esta operación
+  echo("HTTP 403 UNAUTHORIZED");
+  return;
+}
+
 #Creamos un error que enviaremos al cliente en caso de que rellene el formulario mal
 $error = null;
 

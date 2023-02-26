@@ -17,7 +17,7 @@ if(!isset($_SESSION["user"])) { //Si no estamos logueados
 $id = $_GET["id"];
 
 #Comprobamos en la base de datos si el id existe
-$statement = $conn->prepare("SELECT * FROM contacts WHERE id = :id");
+$statement = $conn->prepare("SELECT * FROM contacts WHERE id = :id LIMIT 1");
 
 $statement->bindParam(":id", $id);
 
@@ -29,6 +29,16 @@ if ($statement->rowCount() == 0){
   echo("HTTP 404 NOT FOUND");
   return;
 } 
+
+#Guardamos en contact la información del contacto que vamos a eliminar
+$contact = $statement->fetch(PDO::FETCH_ASSOC);
+
+#Incrementamos la seguridad para que un usuario no puede eliminar contactos de otro usuario a través del string-query
+if($contact["user_id"] != $_SESSION['user']['id']){
+  http_response_code(403); //Código que indica que no estás autorizado para hacer esta operación
+  echo("HTTP 403 UNAUTHORIZED");
+  return;
+}
 
 #Borramos de la base de datos el contacto protegiendonos de las inyecciones SQL (Esta vez de otra forma sin utilizar bindParam, en su lugar agregamos un array asociativo al parametro de execute)
 $conn->prepare("DELETE FROM contacts WHERE id = :id")->execute([":id" => $id]);
